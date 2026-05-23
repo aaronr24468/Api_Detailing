@@ -3,7 +3,7 @@ import { config } from "dotenv";
 import { AppError } from "../services/AppError.mjs";
 config();
 
-const stripe = new Stripe('sk_test_51Su0EaJ5GdgFUR9p12qK2c8dZ83uF5BE5PdAIZjXSQHH4yyy7QZxVghKP4VNU6J45CQboT0FYbtonWmIxqskTFEl00bvu7NS7M');
+const stripe = new Stripe(process.env.STRIPE_SK);
 
 export const payment_Intent = async (request, response, next) => {
     try {
