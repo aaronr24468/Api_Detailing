@@ -1,4 +1,4 @@
-import { getPackageData, setAppointment } from "../models/appointmentModel.mjs";
+import { getListA, getPackageData, setAppointment } from "../models/appointmentModel.mjs";
 import { AppError } from "../services/AppError.mjs";
 
 
@@ -6,21 +6,21 @@ export const generateAppointment = async (request, response, next) => {
     try {
         const data = {
             name: request.body.name,
-            lastname: request.body.lastname,
             address: request.body.address,
-            number: request.body.number,
-            package: request.body.package,
-            dateSelection: request.body.dateSelection,
-            hour: request.body.hour,
-            pricePackage: request.body.pricePackage,
-            carSize: request.body.carSize,
+            phone: request.body.phone,
+            package: request.body.packages,
+            dateSelection: request.body.date,
+            hour: request.body.time,
+            pricePackage: request.body.price,
+            carSize: request.body.size,
             appointment: 'Appointment'
         }
 
+        console.log(data)
+
         if (!data.name ||
-            !data.lastname ||
             !data.address ||
-            !data.number ||
+            !data.phone ||
             !data.package ||
             !data.dateSelection ||
             !data.hour ||
@@ -30,6 +30,8 @@ export const generateAppointment = async (request, response, next) => {
             console.log("falta")
             throw new AppError("Faltan datos", 400)
         }
+
+        console.log(data)
 
         const result = await setAppointment(data);
 
@@ -53,5 +55,14 @@ export const getDataPackage = async (request, response, next) => {
 
     } catch (error) {
        next(error)
+    }
+}
+
+export const getListAppointments = async(request, response, next) =>{
+    try {
+        const data = await getListA();
+        response.json({ok: true, message: 'Success', list: data})
+    } catch (error) {
+        next(error)
     }
 }

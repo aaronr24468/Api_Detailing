@@ -2,10 +2,9 @@ import { connectionDB } from "../connectionDB/connectionDB.mjs";
 
 export const setAppointment = async (data) => {
     const query = `INSERT INTO appointments(
-    name, 
-    lastname, 
+    full_name, 
     address, 
-    number, 
+    phone, 
     package, 
     date_Selection, 
     hour, 
@@ -13,13 +12,12 @@ export const setAppointment = async (data) => {
     carSize,
     service_Status
     )
-    values(?,?,?,?,?,?,?,?,?,?)`;
+    values(?,?,?,?,?,?,?,?,?)`;
 
     const [result] = await connectionDB.query(query, [
         data.name,
-        data.lastname,
         data.address,
-        data.number,
+        data.phone,
         data.package,
         data.dateSelection,
         data.hour,
@@ -35,4 +33,10 @@ export const getPackageData = async(params) =>{
     const query = `SELECT * FROM packages WHERE package_Name=?`;
     const [pack] = await connectionDB.query(query, [params]);
     return(pack)
+}
+
+export const getListA = async() =>{
+    const query =  `SELECT *, MONTH(date_Selection), DAY(date_Selection) FROM appointments ORDER BY MONTH(date_Selection) asc, DAY(date_Selection) asc`;
+    const [list] = await connectionDB.query(query);
+    return(list)
 }

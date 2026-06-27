@@ -3,6 +3,7 @@ import {createServer} from 'http'
 import cors from 'cors';
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
+import { schedule } from "node-cron";
 import { config } from "dotenv";
 config();
 
@@ -20,16 +21,19 @@ const server = createServer(app);
 app.use(morgan('dev'));
 app.use(cors());
 app.use(cookieParser());
-
 app.use(express.json());
 
-app.use('/v1', appointmentRouter);
+schedule("*/5 * * * *", async () =>{
+    
+})
+
+app.use('/appointment', appointmentRouter);
 app.use('/stripe', stripeRouter);
 app.use('/upload', uploadRouter);
-app.use('/get', getInfo)
+app.use('/get', getInfo);
 
 app.use(errHandler);
 
 server.listen(port, () =>{
-    console.log(`Listening to the http://localhost:${port}`)
+    console.log(`Listening to the http://192.168.1.82:${port}`) 
 })

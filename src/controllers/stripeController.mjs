@@ -21,8 +21,8 @@ export const payment_Intent = async (request, response, next) => {
             }
         })
 
-        console.log(paymentIntent)
-
+        console.log(paymentIntent.client_secret)
+        console.log(paymentIntent.id)
         dataPayment.paymentIntentId = paymentIntent.id;
 
         response.json({ok: true, message: 'Success', clientSecret: paymentIntent.client_secret});
