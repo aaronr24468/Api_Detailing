@@ -28,6 +28,7 @@ export const uploadProductList = async(request, response, next) => {
         const data = {
             product_Name: request.body.product_Name,
             description_use: request.body.description_Package,
+            status: 'available'
         } 
 
         const id_Product = await insertProduct(data)

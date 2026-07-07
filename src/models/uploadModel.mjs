@@ -24,8 +24,8 @@ export const uploadPackage = async(data) => {
 }
 
 export const insertProduct = async(data) =>{
-    const query = `INSERT INTO products(name, description)values(?,?)`;
-    const [res]= await connectionDB.query(query, [data.product_Name, data.description_use]);
+    const query = `INSERT INTO products(name, description, status)values(?,?,?)`;
+    const [res]= await connectionDB.query(query, [data.product_Name, data.description_use, data.status]);
     return(res.insertId);
 }
 

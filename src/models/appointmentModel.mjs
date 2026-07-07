@@ -40,3 +40,20 @@ export const getListA = async() =>{
     const [list] = await connectionDB.query(query);
     return(list)
 }
+
+export const getAppoint = async(id) =>{
+    const query = 'SELECT * FROM appointments WHERE id=?';
+    const [appointment] = await connectionDB.query(query, [id]);
+    return(appointment);
+}
+
+export const getIdExpiredAppointments = async() =>{
+    const query = 'SELECT id FROM appointments a WHERE TIMESTAMP(a.date_Selection) < now() and a.service_Status=?';
+    const [idAppointments] = await connectionDB.query(query, ['Appointment']);
+    return(idAppointments)
+}
+
+export const changeStatusAppointment = async(id) =>{
+    const query = 'UPDATE appointments set service_Status=? WHERE id=?';
+    await connectionDB.query(query, ['Expired', id])
+}
