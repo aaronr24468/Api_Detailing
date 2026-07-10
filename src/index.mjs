@@ -36,10 +36,10 @@ app.use('/get', getInfo);
 
 app.use(errHandler);
 
-// server.listen(port, () =>{
-//     console.log(`Listening to the http://192.168.1.82:${port}`) 
-// })
-
-server.listen(8181, () =>{
-    console.log('Listening to the http://localhost:8181')
+server.listen(port, () =>{
+    console.log(`Listening to the http://192.168.1.82:${port}`) 
 })
+
+// server.listen(8181, () =>{
+//     console.log('Listening to the http://localhost:8181')
+// })

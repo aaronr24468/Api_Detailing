@@ -95,3 +95,13 @@ export const updateStatusAppointments = async (request, response, next) => {
         next(error)
     }
 }
+
+export const setExtras = (request, response, next) =>{
+    try {
+        const idAppointment = request.params.id;
+        const dataExtras = request.body.extras;
+        
+    } catch (error) {
+        next(error)
+    }
+}
