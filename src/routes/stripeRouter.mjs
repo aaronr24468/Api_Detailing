@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { payment_Intent } from "../controllers/stripeController.mjs";
+// import { payment_Intent } from "../controllers/stripeController.mjs";
 
 
 export const router = Router();
