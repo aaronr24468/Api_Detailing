@@ -29,6 +29,11 @@ schedule("0 0 * * *", async () =>{ //realizamos actualizacion de status a las 12
     console.log("Se actualizo status de citas a expiradas")
 });
 
+// schedule("*/1 * * * *", async () =>{
+//     updateStatusAppointments();
+//     console.log("Se actualizo status de citas a expiradas")
+// });
+
 app.use('/appointment', appointmentRouter);
 app.use('/stripe', stripeRouter);
 app.use('/upload', uploadRouter);

@@ -1,3 +1,4 @@
+import e from "express";
 import { connectionDB } from "../connectionDB/connectionDB.mjs";
 
 export const setAppointment = async (data) => {
@@ -56,4 +57,15 @@ export const getIdExpiredAppointments = async() =>{
 export const changeStatusAppointment = async(id) =>{
     const query = 'UPDATE appointments set service_Status=? WHERE id=?';
     await connectionDB.query(query, ['Expired', id])
+}
+
+export const setExtraData = async(extra, id) =>{
+    const query = 'INSERT INTO extras(id_appointment, extra)values(?,?)';
+    const [extraRes] = await connectionDB.query(query, [id, extra])
+}
+
+export const getExtras = async(id) =>{
+    const query = 'SELECT * FROM extras WHERE id_appointment=?';
+    const [extras] = await connectionDB.query(query, [id]);
+    return(extras)
 }

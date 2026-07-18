@@ -1,4 +1,4 @@
-import { changeStatusAppointment, getAppoint, getIdExpiredAppointments, getListA, getPackageData, setAppointment } from "../models/appointmentModel.mjs";
+import { changeStatusAppointment, getAppoint, getExtras, getIdExpiredAppointments, getListA, getPackageData, setAppointment, setExtraData } from "../models/appointmentModel.mjs";
 import { AppError } from "../services/AppError.mjs";
 
 
@@ -16,8 +16,6 @@ export const generateAppointment = async (request, response, next) => {
             appointment: 'Appointment'
         }
 
-        console.log(data)
-
         if (!data.name ||
             !data.address ||
             !data.phone ||
@@ -31,13 +29,11 @@ export const generateAppointment = async (request, response, next) => {
             throw new AppError("Faltan datos", 400)
         }
 
-        console.log(data)
-
         const result = await setAppointment(data);
 
         if (result.affectedRows === 0) throw new AppError('Error al registrar servicio', 401);
 
-        response.json({ ok: true, message: 'Se realizo registro con exito' })
+        response.json({ ok: true, message: 'Se realizo registro con exito', id: result.insertId})
     } catch (error) {
         next(error)
     }
@@ -101,6 +97,26 @@ export const setExtras = (request, response, next) =>{
         const idAppointment = request.params.id;
         const dataExtras = request.body.extras;
         
+        console.log(idAppointment)
+        console.log(dataExtras)
+        
+        dataExtras.forEach((element) =>{
+            setExtraData(element, idAppointment)
+        });
+
+        response.json({ ok:true, message:"success"})
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const getAppointmentExtras = async(request, response, next) =>{
+    try {
+        const id = request.params.id;
+        if(!id.length) throw new AppError('Falta identificador', 403);
+        const extras = await getExtras(id);
+        if(extras.length === 0) throw new AppError('No se encontro ningun extra', 401);
+        response.json({ok: true, message: 'Success', data: extras})
     } catch (error) {
         next(error)
     }

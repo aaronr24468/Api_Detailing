@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
     generateAppointment,
     getAppointment,
+    getAppointmentExtras,
     getDataPackage,
     getListAppointments,
     setExtras
@@ -17,4 +18,6 @@ router.get('/getList/appointments', getListAppointments);
 
 router.get('/get/appointment/:id', getAppointment);
 
-router.put('/set/extra/:id', setExtras)
+router.put('/set/extra/:id', setExtras);
+
+router.get('/get/appointment/extras/:id', getAppointmentExtras)
